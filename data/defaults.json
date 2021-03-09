@@ -6,7 +6,7 @@
   "vyos_mirror": "http://dev.packages.vyos.net/repositories/current",
   "vyos_branch": "current",
   "kernel_version": "5.10.85",
-  "kernel_flavor": "amd64-vyos",
+  "kernel_flavor": "arm64-vyos",
   "release_train": "sagitta",
   "bootloaders": "syslinux,grub-efi",
   "additional_repositories": [
