@@ -169,6 +169,9 @@ def get_qemu_cmd(name, enable_kvm, enable_uefi, disk_img, raid=None, iso_img=Non
         cmd += f' -drive format=raw,file={raid},if=none,media=disk,id=drive-hd2,readonly=off' \
                f' -device scsi-hd,bus=scsi0.0,drive=drive-hd2,id=hd2,bootindex={bootindex}'
 
+    if raid:
+        cmd += f' -drive format=raw,file={raid}'
+
     return cmd
 
 def shutdownVM(c, log, message=''):
@@ -252,6 +255,7 @@ def gen_disk(name):
     else:
         log.info(f'Diskimage "{name}" already exists, using the existing one.')
 
+
 if args.raid:
     filename, ext = os.path.splitext(args.disk)
     diskname_raid = f'{filename}_disk1{ext}'
@@ -287,6 +291,7 @@ try:
         log.warning('Did not find GRUB countdown window, ignoring')
 
     loginVM(c, log)
+
 
     #################################################
     # Installing into VyOS system
@@ -355,6 +360,7 @@ try:
     except pexpect.TIMEOUT:
         log.warning('Did not find GRUB countdown window, ignoring')
 
+
     loginVM(c, log)
 
     ################################################
@@ -389,6 +395,10 @@ try:
     c.expect(op_mode_prompt)
     c.sendline('show interfaces')
     c.expect(op_mode_prompt)
+
+    if args.raid:
+        c.sendline('cat /proc/mdstat')
+        c.expect(op_mode_prompt)
 
     #################################################
     # Executing test-suite
@@ -500,7 +510,7 @@ try:
             raise Exception("Smoketest-failed, please look into debug output")
 
     # else, run configtest suite
-    else:
+    elif not args.raid:
         log.info('Adding a legacy WireGuard default keypair for migrations')
         c.sendline('sudo mkdir -p /config/auth/wireguard/default')
         c.expect(op_mode_prompt)
