@@ -54,3 +54,12 @@ dch -v "5.9.11-2+vyos0" "Patchset for DMVPN support" -b
 
 echo "I: Build Debian Package"
 dpkg-buildpackage -uc -us -tc -b -d
+
+echo "I: Building python3-vici"
+autoreconf -vis
+./configure --enable-python-eggs
+cd src/libcharon/plugins/vici/python
+make
+python3 setup.py --command-packages=stdeb.command bdist_deb
+cd "${CWD}"
+find "${SRC}/src/libcharon/plugins/vici/python/deb_dist/" -name 'python3-vici*deb' -exec cp {} ${PWD} \;
