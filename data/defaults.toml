@@ -22,3 +22,5 @@ additional_repositories = [
 website_url = "https://vyos.io"
 support_url = "https://support.vyos.io"
 bugtracker_url = "https://phabricator.vyos.net"
+
+live_bootloader = "syslinux,grub-efi"

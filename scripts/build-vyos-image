@@ -225,6 +225,8 @@ if __name__ == "__main__":
     with open(make_toml_path(defaults.BUILD_ARCHES_DIR, build_config["architecture"]), 'r') as f:
         build_arch_config = toml.load(f)
         build_config = merge_dicts(build_config, build_arch_config)
+        if "live_bootloader" in build_arch_config:
+            build_config["live_bootloader"] = build_arch_config["live_bootloader"]
 
     with open(make_toml_path(defaults.BUILD_FLAVORS_DIR, build_config["build_flavor"]), 'r') as f:
         flavor_config = toml.load(f)
@@ -426,7 +428,7 @@ if __name__ == "__main__":
             --bootappend-live-failsafe "live components memtest noapic noapm nodma nomce nolapic nomodeset nosmp nosplash vga=normal console=ttyS0,115200 console=tty0 net.ifnames=0 biosdevname=0" \
             --linux-flavours {{kernel_flavor}} \
             --linux-packages linux-image-{{kernel_version}} \
-            --bootloader syslinux,grub-efi \
+            --bootloader {{live_bootloader}}  \
             --binary-images iso-hybrid \
             --checksums 'sha256 md5' \
             --debian-installer none \
