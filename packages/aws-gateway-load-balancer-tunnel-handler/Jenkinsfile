@@ -23,10 +23,10 @@ def timestamp = new Date().format('yyyyMMddhhmmss')
 def commit_id = 'f78058a'
 
 def pkgList = [
-    ['name': "aws-gwlbtun-${timestamp}-${commit_id}",
-     'scmCommit': commit_id,
+    ['name': 'aws-gwlbtun-20231128-f78058a',
+     'scmCommit': 'f78058a',
      'scmUrl': 'https://github.com/aws-samples/aws-gateway-load-balancer-tunnel-handler',
-     'buildCmd': "../build.py --package aws-gwlbtun --version ${timestamp}-${commit_id}"],
+     'buildCmd': '../build.py --package aws-gwlbtun --version 20231128-f78058a'],
 ]
 
 // Start package build using library function from https://github.com/vyos/vyos-build
