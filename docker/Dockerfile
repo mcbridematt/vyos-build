@@ -333,6 +333,7 @@ RUN git clone -b 4.4.6 https://github.com/perfsonar/i2util.git /tmp/i2util && \
 RUN apt-get update && apt-get install -y \
       parted \
       udev \
+      kpartx \
       zip
 
 # Packages needed for Accel-PPP
