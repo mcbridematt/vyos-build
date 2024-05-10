@@ -4,6 +4,8 @@
 # the magic word "UNIQUE_ID_firmware" which identifies firmware files.
 
 CWD=$(pwd)
+FW_VERSION="20240610"
+GIT_COMMIT="${FW_VERSION}"
 LINUX_SRC="linux"
 LINUX_FIRMWARE="linux-firmware"
 KERNEL_VAR_FILE=${CWD}/kernel-vars
@@ -13,7 +15,12 @@ if [ ! -d ${LINUX_SRC} ]; then
     exit 1
 fi
 
-if [ ! -d ${LINUX_FIRMWARE} ]; then
+if [ ! -f "${LINUX_FIRMWARE}/GPL-2" ] && [ ! -f "linux-firmware-${FW_VERSION}.tar.xz" ]; then
+	wget "https://cdn.kernel.org/pub/linux/kernel/firmware/linux-firmware-${FW_VERSION}.tar.xz"
+	tar -Jxf "linux-firmware-${FW_VERSION}.tar.xz" -C "${LINUX_FIRMWARE}" --strip-components 1
+fi
+
+if [ ! -f "${LINUX_FIRMWARE}/GPL-2" ]; then
     echo "Linux firmware repository missing"
     exit 1
 fi
@@ -25,7 +32,7 @@ result=()
 FW_FILES=$(find ${LINUX_SRC}/debian/linux-image/lib/modules/${KERNEL_VERSION}${KERNEL_SUFFIX}/kernel/drivers/net -name *.ko | xargs modinfo | grep "^firmware:" | awk '{print $2}')
 
 # Debian package will use the descriptive Git commit as version
-GIT_COMMIT=$(cd ${CWD}/${LINUX_FIRMWARE}; git describe --always)
+#GIT_COMMIT=$(cd ${CWD}/${LINUX_FIRMWARE}; git describe --always)
 VYOS_FIRMWARE_NAME="vyos-linux-firmware"
 VYOS_FIRMWARE_DIR="${VYOS_FIRMWARE_NAME}_${GIT_COMMIT}-0_all"
 if [ -d ${VYOS_FIRMWARE_DIR} ]; then

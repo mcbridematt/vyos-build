@@ -44,8 +44,7 @@ def pkgList = [
      '''],
 
     // Firmware
-    ['name': 'linux-firmware', 'scmCommit': '20240610',
-     'scmUrl': 'https://git.kernel.org/pub/scm/linux/kernel/git/firmware/linux-firmware.git',
+    ['name': 'linux-firmware',
      'buildCmd': 'cd ..; ./build-linux-firmware.sh'],
 
     // Accel-PPP
