@@ -25,7 +25,7 @@ def pkgList = [
      'scmUrl': 'https://github.com/kravietz/pam_tacplus-debian',
      'buildCmd': '/bin/true'],
     ['name': 'pam_tacplus',
-     'scmCommit': '4f91b0d',
+     'scmCommit': 'b839c44',
      'scmUrl': 'https://github.com/kravietz/pam_tacplus',
      'buildCmd': 'cd ..; ./build.sh'],
 ]
