@@ -30,10 +30,13 @@ def pkgList = [
      'scmUrl': 'https://github.com/rtrlib/rtrlib.git',
      'buildCmd': 'sudo mk-build-deps --install --tool "apt-get --yes --no-install-recommends"; dpkg-buildpackage -uc -us -tc -b'],
     ['name': 'frr',
-     'scmCommit': 'stable/9.1',
+     'scmCommit': '995e15980099594b31ce5b0b798bef91a5adf946',
      'scmUrl': 'https://github.com/FRRouting/frr.git',
      'buildCmd': 'sudo dpkg -i ../*.deb; sudo mk-build-deps --install --tool "apt-get --yes --no-install-recommends"; cd ..; ./build-frr.sh'],
 ]
+
+// mcbridematt edit: pinned the frr version to the stable/9.1 branch commit
+// with the BGP patches merged in
 
 // Start package build using library function from https://github.com/vyos/vyos-build
 buildPackage('FRRouting', pkgList, null, true, "**/packages/frr/**")
