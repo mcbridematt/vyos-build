@@ -609,7 +609,7 @@ Pin-Priority: 600
             sys.exit(0)
 
         ## Add local packages
-        local_packages = glob.glob('../packages/*.deb')
+        local_packages = glob.glob('../debs/*.deb')
         if local_packages:
             for f in local_packages:
                 shutil.copy(f, os.path.join(defaults.LOCAL_PACKAGES_PATH, os.path.basename(f)))
