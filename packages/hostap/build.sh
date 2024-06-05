@@ -26,6 +26,9 @@ EOF
 # Build Debian package
 cd ${SRC}
 
+echo "I: arm64 builder hack - remove libeditreadline-dev if present"
+sudo apt-get remove -y "nftables-build-deps" || :
+sudo apt-get remove -y "libeditreadline-dev" || :
 echo "I: Ensure Debian build dependencies are met"
 sudo mk-build-deps --install --tool "apt-get --yes --no-install-recommends" -Ppkg.wpa.nogui,noudeb
 
