@@ -22,7 +22,7 @@
 
 def package_name = 'waagent'
 def pkgList = [
-    ['name': "${package_name}",
+    ['name': 'waagent',
      'scmCommit': 'debian/2.9.1.1-2',
      'scmUrl': 'https://salsa.debian.org/cloud-team/waagent.git',
      'buildCmd': 'sudo mk-build-deps --install --tool "apt-get --yes --no-install-recommends"; sudo apt-get install --yes --no-install-recommends dpkg-source-gitarchive; ../build.py'],
