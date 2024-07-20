@@ -21,7 +21,7 @@
 
 def pkgList = [
     ['name': 'net-snmp',
-     'scmCommit': 'debian/5.9.4+dfsg-1',
+     'scmCommit': '53207d6e13ee69cbdb617a1f21e97f01f4e1db81',
      'scmUrl': 'https://salsa.debian.org/debian/net-snmp',
      'buildCmd': 'sudo mk-build-deps --install --tool "apt-get --yes --no-install-recommends"; cd ..; ./build.sh'],
 ]
